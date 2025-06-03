@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="name-age-address">
+            <h1>{{ user.name }}</h1>
+            <p class="user-age">
+                {% set birth_date = user.birthday.split('-') %}
+                {% set age = now.year - birth_date[0]|int - ((now.month, now.day) < (birth_date[1]|int, birth_date[2]|int)) %}
+                {{ age }} years old
+            </p>
+            <p class="user-address">{{ user.address }}</p>
+        </div>
+        <img src="{{ url_for('static', filename='uploads/' + user.profile_pic) }}" alt="Profile Picture" class="profile-pic">
+    </div>
+    <div class="logout-link">
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</div>
+{% endblock %}
